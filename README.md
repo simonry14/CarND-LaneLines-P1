@@ -1,9 +1,21 @@
 #**Finding Lane Lines on the Road** 
-<img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
 
 When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
 
 In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
+
+# Article
+I wrote an article about the steps involved in this algorithm as well as my experience with applying it on real-world self-collected data. 
+
+Link: [Medium Article](https://medium.com/@paramaggarwal/my-lane-detection-project-for-the-self-driving-car-nanodegree-by-udacity-36a230553bd3#.nsiuks2pk)
+
+# Video
+I talk about the individual steps and behaviour on additional self-collected driving data in my YouTube video below
+
+[![Video about Project on YouTube](http://i.imgur.com/ghr0MAX.png)](https://www.youtube.com/watch?v=a6pDdS6sY2E)
+
+# Setup
+<img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
 
 **Step 1:** Getting setup with Python
 
