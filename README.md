@@ -1,80 +1,42 @@
-#**Finding Lane Lines on the Road** 
+# **Finding Lane Lines on the Road** 
 
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
+## Writeup Template
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
+### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
 
-# Article
-I wrote an article about the steps involved in this algorithm as well as my experience with applying it on real-world self-collected data. 
+---
 
-Link: [Medium Article](https://medium.com/@paramaggarwal/my-lane-detection-project-for-the-self-driving-car-nanodegree-by-udacity-36a230553bd3#.nsiuks2pk)
+**Finding Lane Lines on the Road**
 
-# Video
-I talk about the individual steps and behaviour on additional self-collected driving data in my YouTube video below
+The goals / steps of this project are the following:
+* Make a pipeline that finds lane lines on the road
+* Reflect on your work in a written report
 
-[![Video about Project on YouTube](http://i.imgur.com/ghr0MAX.png)](https://www.youtube.com/watch?v=a6pDdS6sY2E)
 
-# Setup
-<img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
+[//]: # (Image References)
 
-**Step 1:** Getting setup with Python
+[image1]: ./examples/grayscale.jpg "Grayscale"
 
-To do this project, you will need Python 3 along with the numpy, matplotlib, and OpenCV libraries, as well as Jupyter Notebook installed. 
+---
 
-We recommend downloading and installing the Anaconda Python 3 distribution from Continuum Analytics because it comes prepackaged with many of the Python dependencies you will need for this and future projects, makes it easy to install OpenCV, and includes Jupyter Notebook.  Beyond that, it is one of the most common Python distributions used in data analytics and machine learning, so a great choice if you're getting started in the field.
+### Reflection
 
-Choose the appropriate Python 3 Anaconda install package for your operating system <A HREF="https://www.continuum.io/downloads" target="_blank">here</A>.   Download and install the package.
+### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-If you already have Anaconda for Python 2 installed, you can create a separate environment for Python 3 and all the appropriate dependencies with the following command:
+My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I applied a guassian blur with a kernel size of 11. Canny edge detection was then applied to the blurred image with low threshold of 40 and a highthreshold of 50. A region of interest was then defined using vertices that were tuned through trial and error. Finally the edge image was passed through a hough transform.
 
-`>  conda create --name=yourNewEnvironment python=3 anaconda`
+In order to draw a single line on the left and right lanes, I modified the draw_lines() function by first separating the lines into left and right lines using their slopes (Negative slopes for righ lines and positive slopes for left lines). The slopes of the left and right lines were calcuated and averaged. Lines were then fit on the points corresponding to the the left and right lines using the 'fitLine()' method and intercepts and sslopes of these 2 lines calculated. USing the equation x = (y - b)/m, x points for the lines are calcualted and then two lines are then drawn on the image. 
 
-`>  source activate yourNewEnvironment`
+![alt text][image1]
 
-**Step 2:** Installing OpenCV
 
-Once you have Anaconda installed, first double check you are in your Python 3 environment:
+### 2. Identify potential shortcomings with your current pipeline
 
-`>python`    
-`Python 3.5.2 |Anaconda 4.1.1 (x86_64)| (default, Jul  2 2016, 17:52:12)`  
-`[GCC 4.2.1 Compatible Apple LLVM 4.2 (clang-425.0.28)] on darwin`  
-`Type "help", "copyright", "credits" or "license" for more information.`  
-`>>>`   
-(Ctrl-d to exit Python)
 
-run the following commands at the terminal prompt to get OpenCV:
+My current pipeline doesn't work well with winding lane lines and on roads with changing conditions(e.g shadows and color pathces)
 
-`> pip install pillow`  
-`> conda install -c https://conda.anaconda.org/menpo opencv3`
 
-then to test if OpenCV is installed correctly:
+### 3. Suggest possible improvements to your pipeline
 
-`> python`  
-`>>> import cv2`  
-`>>>`  
-(Ctrl-d to exit Python)
+A possible improvement would be to average the detected lines over previous frames of the video
 
-**Step 3:** Installing moviepy  
-
-We recommend the "moviepy" package for processing video in this project (though you're welcome to use other packages if you prefer).  
-
-To install moviepy run:
-
-`>pip install moviepy`  
-
-and check that the install worked:
-
-`>python`  
-`>>>import moviepy`  
-`>>>`  
-(Ctrl-d to exit Python)
-
-**Step 4:** Opening the code in a Jupyter Notebook
-
-You will complete this project in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out <A HREF="https://www.packtpub.com/books/content/basics-jupyter-notebook-and-python" target="_blank">Cyrille Rossant's Basics of Jupyter Notebook and Python</A> to get started.
-
-Jupyter is an ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, run the following command at the terminal prompt (be sure you're in your Python 3 environment!):
-
-`> jupyter notebook`
-
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
